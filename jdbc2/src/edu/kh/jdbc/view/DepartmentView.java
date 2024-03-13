@@ -198,5 +198,4 @@ public class DepartmentView {
 			System.out.println("[수정 실패]");
 		}
 	}
-	
 }
