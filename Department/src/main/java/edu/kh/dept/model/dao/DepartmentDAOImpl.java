@@ -105,4 +105,106 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 		
 		return result;
 	}
+
+	@Override
+	public int deleteDepartment(Connection conn, String deptId) throws SQLException {
+		// TODO Auto-generated method stub
+		int result = 0;
+		try {
+			String sql = prop.getProperty("deleteDepartment");
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1,deptId);
+			
+			result = pstmt.executeUpdate();
+			
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	//부서 1행 조회
+	@Override
+	public Department selectOne(Connection conn, String deptId) throws SQLException {
+		
+		//결과 저장용 변수 선언
+		Department dept = null;
+		
+		try {
+			
+			//SQL 얻어오기
+			String sql = prop.getProperty("selectOne");
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,deptId);
+			
+			//SQL(SELECT) 수행 후 결과(ResultSet) 반환 받기
+			rs = pstmt.executeQuery();
+			
+			//PK를 조건으로 삼은 SELECT문은
+			//조회 성공 시 1행만 조회됨! --> while 대신 if문으로 1회만 접근
+			if(rs.next()) {
+				dept = new Department(
+							rs.getString("DEPT_ID"),
+							rs.getString("DEPT_TITLE"),
+							rs.getString("LOCATION_ID")
+						);
+			}
+			
+		}finally {
+			//사용한 JDBC 객체 자원 반환 (커넥션 제외)
+			close(rs);
+			close(pstmt);
+			
+			
+		}
+		
+		
+		return dept; // 조회 실패시 null, 성공시 null 아님
+	}
+	@Override
+	public int updateDepartment(Connection conn, Department dept) throws SQLException {
+		int result = 0;
+		try {
+			String sql = prop.getProperty("updateDepartment");
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(3,dept.getDeptId());
+			pstmt.setString(1,dept.getDeptTitle());
+			pstmt.setString(2,dept.getLocationId());
+			
+			result = pstmt.executeUpdate();
+		}finally { //JDBC 객체 자원 부조건 반환 하려고 FINALLY 구문 사용
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public List<Department> searchDepartment(Connection conn) throws SQLException {
+		
+		List <Department> deptList = new ArrayList<Department>();
+		try {
+			String sql = prop.getProperty("searchDepartment");
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+				String deptId = rs.getString("DEPT_ID");
+				String deptTitle = rs.getString("DEPT_TITLE");
+				String locationId = rs.getString("LOCATION_ID");
+				
+				Department deptSearch = new Department(deptId, deptTitle, locationId);
+				
+				deptList.add(deptSearch);
+			
+			
+		}finally { //JDBC 객체 자원 부조건 반환 하려고 FINALLY 구문 사용
+			close(pstmt);
+		}
+		
+		return deptList;
+	}
+	
 }
