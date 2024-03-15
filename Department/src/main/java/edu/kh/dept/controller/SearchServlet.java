@@ -24,10 +24,12 @@ public class SearchServlet extends HttpServlet {
 			String d = req.getParameter("keyword");
 			List<Department> deptSearch = service.searchDepartment(d);
 			
-			req.setAttribute("depthSearch", deptSearch);
+			req.setAttribute("deptSearch", deptSearch);
 			
 			//forward할 JSP 경로
 			String path = "/WEB-INF/views/search.jsp";
+			
+			//요청 위임
 			req.getRequestDispatcher(path).forward(req, resp);
 			
 			

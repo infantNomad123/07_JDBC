@@ -191,13 +191,16 @@ public class DepartmentServiceImpl implements DepartmentService {
 		
 	}
 	@Override
-	public List<Department> searchDepartment(String deptTitle) throws SQLException {
+	public List<Department> searchDepartment(String d) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = getConnection();
-		int result = 0;
-		return null;
+		List<Department> deptList = dao.searchDepartment(conn, d);
+		close(conn);
+		return deptList;
 		
 	}
+
+	
 
 
 	

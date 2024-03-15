@@ -45,7 +45,8 @@ public interface DepartmentService {
 
 	
 
-	List<Department> searchDepartment(String deptTitle) throws SQLException;
+
+	List<Department> searchDepartment(String deptSearch) throws SQLException;
 
 	
 	

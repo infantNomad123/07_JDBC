@@ -70,6 +70,7 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 		}finally {
 			close(rs);
 			close(stmt);
+			
 		}
 			
 		return deptList;
@@ -182,26 +183,36 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 		return result;
 	}
 	
+	//부서명 검색
 	@Override
-	public List<Department> searchDepartment(Connection conn) throws SQLException {
-		
+	public List<Department> searchDepartment(Connection conn, String d) throws SQLException {
+		// 결과를 저장할 변수 / 객체 생성
 		List <Department> deptList = new ArrayList<Department>();
 		try {
+			//SQL 얻어오기
 			String sql = prop.getProperty("searchDepartment");
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
 			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, d);
+			
+			
+			//SQL(SELECT) 수행 후 결과 (RESULTSET) 반환 받기
+			rs = pstmt.executeQuery();
+			
+			//조회 결과를 한 헹식 접근해서 컬럼 값 모두 얻어오기
+			while(rs.next()) {
 				String deptId = rs.getString("DEPT_ID");
 				String deptTitle = rs.getString("DEPT_TITLE");
 				String locationId = rs.getString("LOCATION_ID");
 				
-				Department deptSearch = new Department(deptId, deptTitle, locationId);
+				Department deptS = new Department(deptId, deptTitle, locationId);
 				
-				deptList.add(deptSearch);
-			
-			
+				deptList.add(deptS);
+			}	
 		}finally { //JDBC 객체 자원 부조건 반환 하려고 FINALLY 구문 사용
+			close(rs);
 			close(pstmt);
+		
 		}
 		
 		return deptList;

@@ -11,41 +11,41 @@
 <body>
     <h1>${param.keyword} 검색 결과</h1>
 
-    <table border = "1">
-        <thead>
-           
-			<tr>
-				<th>행 번호</th>
-				<th>부서코드 (DEPT_ID)</th>
-				<th>부서 명 (DEPT_TITLE)</th>
-				<th>지역코드 (LOCATION_ID)</th>
+	<%-- empty : 비어있러자 null인 경우 true 반환 --%>
+	<c:if test="${empty deptSearch}" >
+		<h3>검색 결과가 없습니다</h3>
+	</c:if>
 
-				<th>수정 버튼</th>
-				<th>삭제 버튼</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-			<c:forEach items = "${deptSearch}" var = "dept" varStatus = "vs">
+	<%-- not empty : 비어 있지 않거나, null이 아닌 경우 true --%>
+	<c:if test="${not empty deptSearch}" >
+		<table border = "1">
+			<thead>
+			
 				<tr>
-					<%--vs.count : 현재 반복 횟수 (1부터 시작) --%>
-					<td>${vs.count}</td>
-					<td>${dept.deptId}</td>
-					<td>${dept.deptTitle}</td>
-					<td>${dept.locationId}</td>
+					<th>행 번호</th>
+					<th>부서코드 (DEPT_ID)</th>
+					<th>부서 명 (DEPT_TITLE)</th>
+					<th>지역코드 (LOCATION_ID)</th>
 
-					<th>
-						<button type = "button" class = "update-btn">수정</button>
-					</th>
-					
-					<th>
-						<button type = "button" class = "delete-btn">삭제</button>
-					</th>
 				</tr>
-			</c:forEach>
-		</tbody>
-        </thead>
-    </table>
+			</thead>
+			
+			<tbody>
+				<c:forEach items = "${deptSearch}" var = "dept" varStatus = "vs">
+					<tr>
+						<%--vs.count : 현재 반복 횟수 (1부터 시작) --%>
+						<td>${vs.count}</td>
+						<td>${dept.deptId}</td>
+						<td>${dept.deptTitle}</td>
+						<td>${dept.locationId}</td>
+
+						
+					</tr>
+				</c:forEach>
+			</tbody>
+			</thead>
+		</table>
+	</c:if>
 
     
 </body>
