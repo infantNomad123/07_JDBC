@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	
+	<!-- 모든 부서 조회  -->
+	<entry key = "selectAll">
+		SELECT * FROM MOVIE_RESERV
+	</entry>
+	<entry key = "getBooking">
+		SELECT * FROM MOVIE_RESERV
+		WHERE SR_NO = ?
+	</entry>
+	
+	
+	
+</properties>
