@@ -2,6 +2,7 @@ package edu.kh.project.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import edu.kh.project.model.dto.MovieBooking;
 import edu.kh.project.model.service.ProjectService;
@@ -12,25 +13,31 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/project/booking")
-public class Booking extends HttpServlet{
+@WebServlet("/project/search")
+public class SearchMovies extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ProjectService service = new ProjectServiceImpl();
 		
+		
 		try {
-			int srNo = Integer.parseInt(req.getParameter("srNo"));
-			MovieBooking movie =service.booking(srNo);
+			String keyword = req.getParameter("keyword");
 			
 			
-			req.setAttribute("movie", movie);
-			String path = "/WEB-INF/views/booking.jsp";
+			MovieBooking mb = service.search(keyword);
+			String path = "/WEB-INF/views/search.jsp";
+			req.setAttribute("name", keyword);
+		
+			
 			req.getRequestDispatcher(path).forward(req,resp);
-		}catch(Exception e) {
+			
+			
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		
 	}
-	
-
 }

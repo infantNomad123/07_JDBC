@@ -11,6 +11,12 @@ public interface ProjectService {
 
 	MovieBooking booking(int srNo) throws SQLException;
 
+	
+
+	int sendDetail(String name, int total, int person) throws SQLException;
+
+	MovieBooking search(String keyword) throws SQLException;
+
 
 
 }

@@ -88,6 +88,47 @@ public class ProjectDAOImpl implements ProjectDAO {
 		return mb;
 	}
 
+	@Override
+	public int sendDetail(Connection conn, String name,  int total, int person) throws SQLException {
+		int result = 0;
+		try {
+			
+			String sql = prop.getProperty("sendInfo");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,person);
+			pstmt.setInt(2,total);
+			pstmt.setString(3, name);
+			
+			result = pstmt.executeUpdate();
+			
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	@Override
+	public MovieBooking search(Connection conn, String keyword) throws SQLException {
+		MovieBooking mb = null;
+		try {
+			String sql = prop.getProperty("search");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,keyword);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				
+				String name = rs.getString("NAME");
+				
+			}
+		}
+		finally {
+			close(rs);
+			close(pstmt);
+		}
+		return mb;
+	}
+
+	
 	
 	
 

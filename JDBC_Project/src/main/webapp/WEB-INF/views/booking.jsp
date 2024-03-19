@@ -10,15 +10,20 @@
 <body>
  <h1>${movie.name}</h1>
     <form action="/project/booking" method = "GET" >
-        인원 수 : <input type="number" name="perNum">
+        인원 수 : <input type="number", id = "input"  , min = "1", max = "100">
         <br><br>
-        가격 : <b id = "price">${movie.price}</b>
-        총 : <b></b>
+        가격 : <b id = "price" name = "price">${movie.price}</b><br>
+        총 : <b id = "total" name = "total">0</b><br>
+        인원: <b id = "persons" name = "person">0<b><br>
+         
     </form>
     <br>
-    <button> 예매하기</button>
-    
-    
+    <button id = "button"> 예매하기</button>
+   
+ 
+<script src = "/resources/js/booking.js" ></script>
+
+ 
 </body>
-<script src = "/resources/js/booking.js"></script>
+
 </html>

@@ -14,4 +14,17 @@ public interface ProjectDAO {
 
 	MovieBooking booking(Connection conn, int srNo) throws SQLException;
 
+
+
+
+
+
+
+
+	int sendDetail(Connection conn, String name, int total, int person) throws SQLException;
+
+
+
+	MovieBooking search(Connection conn, String keyword) throws SQLException;
+
 }

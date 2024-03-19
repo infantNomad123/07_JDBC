@@ -11,6 +11,13 @@
 <body>
     <h1>ODEON MOVIE RESERVATION SYSTEM</h1>
     
+    <form action="/project/search">
+        <input type="text" placeholder = "search" name="keyword">
+        <button>search</button><br><br>
+    </form>
+   
+    
+    
         <table border = "1">
             <thead>
                 <tr>
@@ -36,7 +43,13 @@
 			</c:forEach>
 		</tbody>
         </table>
-    
+         <script>
+         const button = document.querySelector("button");
+         button.addEventListener("click" , () => {
+             a.href.location = "/project/search?name=" + ${name};
+         });
+           
+        </script>
         
         
 </body>

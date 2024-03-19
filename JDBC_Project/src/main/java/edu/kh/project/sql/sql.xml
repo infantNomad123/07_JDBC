@@ -10,6 +10,15 @@
 		SELECT * FROM MOVIE_RESERV
 		WHERE SR_NO = ?
 	</entry>
+	<entry key = "sendInfo">
+		UPDATE MOVIE_RESERV
+		SET AMOUNT =?, TOTAL = ?
+		WHERE NAME = ?
+	</entry>
+	<entry key = "search">
+		SELECT * FROM MOVIE_RESERV
+		WHERE NAME LIKE '%' || ? || '%'
+	</entry>
 	
 	
 	

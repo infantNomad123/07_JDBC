@@ -5,6 +5,7 @@ public class MovieBooking {
 	private  int price;
 	private  int ratings;
 	private  int sr_no;
+
 	
 	public MovieBooking() {
 		// TODO Auto-generated constructor stub
